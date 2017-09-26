@@ -9,11 +9,11 @@
 #
 #     $ ./install.sh
 #
-ln -s $HOME/.dotfiles/gvimrc $HOME/.gvimrc
-ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc
+ln -sf gvimrc $HOME/.gvimrc
+ln -sf vimrc $HOME/.vimrc
 mkdir -p $HOME/.hammerspoon
-ln -s $HOME/.dotfiles/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
+ln -sf hammerspoon/init.lua $HOME/.hammerspoon/init.lua
 mkdir -p $HOME/.config/karabiner
-ln -s $HOME/.dotfiles/karabiner/karabiner.json $HOME/.config/karabiner
-ln -s $HOME/.dotfiles/spacemacs $HOME/.spacemacs
+ln -sf karabiner/karabiner.json $HOME/.config/karabiner
+ln -sf spacemacs $HOME/.spacemacs
 
