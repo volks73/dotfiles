@@ -9,6 +9,9 @@
 #
 #     $ ./install.sh
 #
+# Since the `-f` flag is used for the `ln` command, this script will overwrite
+# any previous files or links in the target locations with links to the
+# configuration files in this repository.
 ln -sf $(pwd)/vimrc $HOME/.vimrc
 ln -sf $(pwd)/gvimrc $HOME/.gvimrc
 mkdir -p $HOME/.hammerspoon

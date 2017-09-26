@@ -10,15 +10,15 @@ The repository should be cloned into a reasonable location on the user's machine
 $ git clone https://github.com/volks73/dotfiles.git $HOME/.dotfiles
 ```
 
-After the repository has been cloned, symbolic links should be created for each configuration file for the system or application-specific location.
+After the repository has been cloned, symbolic links should be created for each configuration file for the system or application-specific location. Since the `-f` flag is used for the `ln` command, any previous files or links will be overwritten.
 
 ```
-$ ln -s $HOME/.dotfiles/gvimrc $HOME/.gvimrc
-$ ln -s $HOME/.dotfiles/vimrc $HOME/.vimrc
+$ ln -sf $(pwd)/vimrc $HOME/.vimrc
+$ ln -sf $(pwd)/gvimrc $HOME/.gvimrc
 $ mkdir -p $HOME/.hammerspoon
-$ ln -s $HOME/.dotfiles/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
+$ ln -sf $(pwd)/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
 $ mkdir -p $HOME/.config/karabiner
-$ ln -s $HOME/.dotfiles/karabiner/karabiner.json $HOME/.config/karabiner
-$ ln -s $HOME/.dotfiles/spacemacs $HOME/.spacemacs
+$ ln -sf $(pwd)/karabiner/karabiner.json $HOME/.config/karabiner
+$ ln -sf $(pwd)/spacemacs $HOME/.spacemacs
 ```
 
