@@ -139,6 +139,7 @@ hs.hotkey.bind(hyper, "C", function()
         local path = url.parse(paths["1"]).path
         win:focus()
         hs.eventtap.keyStrokes(path)
+        -- TODO: Put the path on the clipboard
     end
 end)
 
