@@ -45,6 +45,13 @@
 -- Note, Karabiner-Elements has also been used to change the Caps Lock key to
 -- Left Control if used in combination with another key and Escape if used
 -- alone.
+
+-- The [net-url](https://github.com/golgote/neturl) module is used to safely
+-- and robustly parse file URLs. It is included here as the `url` module to
+-- avoid having to minimize dependencies. This avoids having to install
+-- luarocks and reinvent URL parsing.
+url = require("url")
+
 hyper = {"cmd", "alt", "ctrl"}
 
 -- Move window to left half of screen
@@ -118,6 +125,23 @@ hs.hotkey.bind(hyper, "M", function()
     win:setFrame(f)
 end)
 
+-- Show a File/Folder selection dialog and write the path as a string back to
+-- the window that originally had focus before the File/Folder selection dialog
+-- was displayed.
+hs.hotkey.bind(hyper, "C", function()
+    local win = hs.window.focusedWindow()
+    -- The `chooseFileOrFolder` returns a table with numerical keys starting at
+    -- one (1) for each path. The paths are URLs in the format of
+    -- `file:///selected/path`. The URL needs to be converted to a path, i.e.
+    -- the `file://` needs to be dropped.
+    local paths = hs.dialog.chooseFileOrFolder("Select a File or Folder", "~", true, true, false)
+    if paths then
+        local path = url.parse(paths["1"]).path
+        win:focus()
+        hs.eventtap.keyStrokes(path)
+    end
+end)
+
 -- Reloads this file.
 hs.hotkey.bind(hyper, "R", function()
     hs.reload()
@@ -134,6 +158,8 @@ function reload_config(files)
         hs.reload()
     end
 end
+
+
 
 -- Reload this file if it is modified
 my_watcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reload_config):start()

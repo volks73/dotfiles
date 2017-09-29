@@ -16,6 +16,7 @@ ln -sf $(pwd)/vimrc $HOME/.vimrc
 ln -sf $(pwd)/gvimrc $HOME/.gvimrc
 mkdir -p $HOME/.hammerspoon
 ln -sf $(pwd)/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
+ln -sf $(pwd)/hammerspoon/url.lua $HOME/.hammerspoon/url.lua
 mkdir -p $HOME/.config/karabiner
 ln -sf $(pwd)/karabiner/karabiner.json $HOME/.config/karabiner
 ln -sf $(pwd)/spacemacs $HOME/.spacemacs
