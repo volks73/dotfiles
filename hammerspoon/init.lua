@@ -127,18 +127,24 @@ end)
 
 -- Show a File/Folder selection dialog and write the path as a string back to
 -- the window that originally had focus before the File/Folder selection dialog
--- was displayed.
+-- was displayed. The goal is to provide an easy way to find a file or folder
+-- when using a terminal to specify a path when the absolute path is not known
+-- or relatively long to type. This provides a way to select a file or folder
+-- in the middle of typing a command into the terminal.
 hs.hotkey.bind(hyper, "C", function()
     local win = hs.window.focusedWindow()
-    -- The `chooseFileOrFolder` returns a table with numerical keys starting at
-    -- one (1) for each path. The paths are URLs in the format of
-    -- `file:///selected/path`. The URL needs to be converted to a path, i.e.
-    -- the `file://` needs to be dropped.
+    -- The `chooseFileOrFolder` returns a table with numbers as strings for the
+    -- keys starting at one (1) for each path. The paths are URLs in the format
+    -- of `file:///selected/path`. The URL needs to be converted to a path,
+    -- i.e. the `file://` needs to be dropped.
     local paths = hs.dialog.chooseFileOrFolder("Select a File or Folder", "~", true, true, false)
     if paths then
         local path = url.parse(paths["1"]).path
+        -- Refocus the previously focused window
         win:focus()
+        -- Write the path as a key stroke
         hs.eventtap.keyStrokes(path)
+        -- Also copy the path to the system clipboard (pasteboard)
         hs.pasteboard.setContents(path)
     end
 end)
