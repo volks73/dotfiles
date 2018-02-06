@@ -52,7 +52,30 @@
 -- luarocks and reinvent URL parsing.
 url = require("url")
 
-hyper = {"cmd", "alt", "ctrl"}
+local hyper = {"cmd", "alt", "ctrl"}
+local wf = hs.window.filter
+-- TODO: Change this to a stack, so that multiple windows can be restored with successive calls to the shortcut
+local most_recent_minimized_window = nil
+
+wf.default:subscribe(wf.windowMinimized, function(window, application_name, cause) 
+    most_recent_minimized_window = window
+    most_recent_minimized_window = nill
+end)
+
+-- Set the dimensions of a window to fill the entire screen.
+--
+-- This might be the same `toggleZoom` method on the window
+function fill_screen(win)
+    local f = win:frame()
+    local screen = win:screen()
+    local max = screen:frame()
+
+    f.x = max.x
+    f.y = max.y
+    f.w = max.w
+    f.h = max.h
+    win:setFrame(f)
+end
 
 -- Move window to left half of screen
 hs.hotkey.bind(hyper, "H", function()
@@ -110,19 +133,21 @@ hs.hotkey.bind(hyper, "K", function()
     win:setFrame(f)
 end)
 
--- Maximize window. This does _not_ change the window to Fullscreen, it just
--- resizes the window to the bounds of the screen.
+-- Maximizes the current window. This does _not_ change the window to
+-- Fullscreen, it just resizes the window to fill the screen. This is not
+-- a toggle feature either, it only works one way, i.e. firing the shortcut
+-- again does not unfill the screen.
 hs.hotkey.bind(hyper, "M", function()
     local win = hs.window.focusedWindow()
-    local f = win:frame()
-    local screen = win:screen()
-    local max = screen:frame()
+    fill_screen(win)
+end)
 
-    f.x = max.x
-    f.y = max.y
-    f.w = max.w
-    f.h = max.h
-    win:setFrame(f)
+-- Maximize the most recently minimized window. This means unminizing the
+-- window and resizing it to fill the screen.
+hs.hotkey.bind(hyper, "N", function()
+    if most_recent_minimized_window then
+        fill_screen(mose_recent_minimized_window:unminimize())
+    end
 end)
 
 -- Show a File/Folder selection dialog and write the path as a string back to
@@ -165,8 +190,6 @@ function reload_config(files)
         hs.reload()
     end
 end
-
-
 
 -- Reload this file if it is modified
 my_watcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reload_config):start()
