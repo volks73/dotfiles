@@ -24,12 +24,12 @@ inoremap fd <Esc>
 nnoremap <SPACE> <Nop>
 vnoremap <SPACE> <Nop>
 map <SPACE> <Leader>
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
-nmap <Leader>a\| :Tabularize /\|<CR>
-vmap <Leader>a\| :Tabularize /\|<CR>
+"nmap <Leader>a= :Tabularize /=<CR>
+"vmap <Leader>a= :Tabularize /=<CR>
+"nmap <Leader>a: :Tabularize /:\zs<CR>
+"vmap <Leader>a: :Tabularize /:\zs<CR>
+"nmap <Leader>a\| :Tabularize /\|<CR>
+"vmap <Leader>a\| :Tabularize /\|<CR>
 nnoremap n nzz
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -43,12 +43,12 @@ nnoremap <D-j> <C-W><C-j>
 nnoremap <D-k> <C-W><C-k>
 nnoremap <D-l> <C-W><C-l>
 nnoremap <D-h> <C-W><C-h>
-map w <Plug>CamelCaseMotion_w
-map b <Plug>CamelCaseMotion_b
-map e <Plug>CamelCaseMotion_e
-sunmap w
-sunmap b
-sunmap e
+"map w <Plug>CamelCaseMotion_w
+"map b <Plug>CamelCaseMotion_b
+"map e <Plug>CamelCaseMotion_e
+"sunmap w
+"sunmap b
+"sunmap e
 nmap <Leader>ne :NERDTreeToggle<CR>
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
@@ -58,8 +58,6 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd Filetype svn setlocal spell textwidth=72
 autocmd Filetype markdown setlocal spell
 autocmd Filetype markdown.pandoc setlocal spell conceallevel=0
-autocmd Filetype dokuwiki setlocal spell
-autocmd Filetype bbcode setlocal spell
 augroup pandoc_syntax
     au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc spell conceallevel=0
 augroup END
@@ -70,6 +68,4 @@ autocmd BufRead,BufNewFile *.lca set filetype=lua
 autocmd BufRead,BufNewFile *.ino set filetype=arduino
 autocmd BufRead,BufNewFile *.pde set filetype=arduino
 autocmd BufRead,BufNewFile *.ulp set filetype=c
-autocmd BufRead,BufNewFile *.doku set filetype=dokuwiki spell
-autocmd BufRead,BufNewFile *.bbcode set filetype=bbcode spell
 command -complete=file -nargs=1 E bd | e <args>
