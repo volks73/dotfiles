@@ -1,2 +1,2 @@
-set guifont=Source\ Code\ Pro\ Medium:h16
+set guifont=Source\ Code\ Variable\ Regular:h16
 set guioptions-=r
