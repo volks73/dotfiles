@@ -14,6 +14,7 @@
 # configuration files in this repository.
 ln -sf $(pwd)/vimrc $HOME/.vimrc
 ln -sf $(pwd)/gvimrc $HOME/.gvimrc
+ln -sf $(pwd)/bashrc $HOME/.bashrc
 mkdir -p $HOME/.hammerspoon
 ln -sf $(pwd)/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
 ln -sf $(pwd)/hammerspoon/url.lua $HOME/.hammerspoon/url.lua

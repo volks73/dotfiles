@@ -10,11 +10,21 @@ The repository should be cloned into a reasonable location on the user's machine
 $ git clone https://github.com/volks73/dotfiles.git $HOME/.dotfiles
 ```
 
-After the repository has been cloned, symbolic links should be created for each configuration file for the system or application-specific location. Since the `-f` flag is used for the `ln` command, any previous files or links will be overwritten.
+After the repository has been cloned, symbolic links should be created for each configuration file for the system or application-specific location. This can be accomplished using the `install.sh` script provided with the source code and run with:
 
+```bash
+$ cd $HOME/.dotfiles
+$ install.sh
 ```
+
+Or, the symbolic links can be created manually as follows:
+
+Since the `-f` flag is used for the `ln` command, any previous files or links will be overwritten.
+
+```bash
 $ ln -sf $(pwd)/vimrc $HOME/.vimrc
 $ ln -sf $(pwd)/gvimrc $HOME/.gvimrc
+$ ln -sf $(pwd)/bashrc $HOME/.bashrc
 $ mkdir -p $HOME/.hammerspoon
 $ ln -sf $(pwd)/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
 $ ln -sf $(pwd)/hammerspoon/url.lua $HOME/.hammerspoon/url.lua
