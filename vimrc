@@ -43,12 +43,14 @@ nnoremap <D-j> <C-W><C-j>
 nnoremap <D-k> <C-W><C-k>
 nnoremap <D-l> <C-W><C-l>
 nnoremap <D-h> <C-W><C-h>
-"map w <Plug>CamelCaseMotion_w
-"map b <Plug>CamelCaseMotion_b
-"map e <Plug>CamelCaseMotion_e
-"sunmap w
-"sunmap b
-"sunmap e
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
 nmap <Leader>ne :NERDTreeToggle<CR>
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
