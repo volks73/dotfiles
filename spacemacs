@@ -309,16 +309,16 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Vertically centers the line during searching with '/'
   (defadvice evil-search-forward
-    "Vertically centers the line during searching with '/'"
     (after advice-for-evil-search-next activate)
     (evil-scroll-line-to-center (line-number-at-pos)))
+  ;; Vertically centers the line during searching with 'n'
   (defadvice evil-search-next
-    "Vertically centers the line during searching with 'n'"
     (after advice-for-evil-search-next activate)
     (evil-scroll-line-to-center (line-number-at-pos)))
+  ;; Vertically centers the line during searching with 'N'
   (defadvice evil-search-previous
-    "Vertically centers the line during searching with 'N'"
     (after advice-for-evil-search-previous activate)
     (evil-scroll-line-to-center (line-number-at-pos)))
   )
