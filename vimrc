@@ -32,6 +32,10 @@ map <SPACE> <Leader>
 "nmap <Leader>a\| :Tabularize /\|<CR>
 "vmap <Leader>a\| :Tabularize /\|<CR>
 nnoremap n nzz
+nnoremap <Leader>wj <C-W><C-J>
+nnoremap <Leader>wk <C-W><C-K>
+nnoremap <Leader>wl <C-W><C-L>
+nnoremap <Leader>wh <C-W><C-H>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
