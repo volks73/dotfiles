@@ -4,6 +4,7 @@ alias ll="ls -l"
 alias la="ls -A"
 alias lla="ls -lA"
 alias latex="latex --output-format=pdf"
+alias emacs='open -a /Applications/Emacs.app "$@"'
 
 # Copies files from the home directory to the external hard drive with the 'Data' drive label
 alias ext-backup="rsync -avhr --no-p --delete --exclude='Library/' --exclude='anaconda/' --exclude='miniconda' --exclude='miniconda3' --exclude='Applications/' --include='.git' --exclude='.*' /Users/cfield/ '/Volumes/Data/Mac OSX Backup/'"
