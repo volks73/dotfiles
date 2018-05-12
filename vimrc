@@ -53,6 +53,12 @@ sunmap b
 sunmap e
 sunmap ge
 nmap <Leader>ne :NERDTreeToggle<CR>
+nmap <Leader>p "+p
+vmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>P "+P
+nmap <Leader>y "+y
+vmap <Leader>y "+y
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 colorscheme solarized 
@@ -71,4 +77,3 @@ autocmd BufRead,BufNewFile *.lca set filetype=lua
 autocmd BufRead,BufNewFile *.ino set filetype=arduino
 autocmd BufRead,BufNewFile *.pde set filetype=arduino
 autocmd BufRead,BufNewFile *.ulp set filetype=c
-command -complete=file -nargs=1 E bd | e <args>
