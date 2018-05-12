@@ -309,6 +309,9 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Always follows symbolic links when pointing to a file under version control
+  ;; (vc). This avoids having to answer the question before opening the file.
+  (setq vc-follow-symlinks t)
   ;; Vertically centers the line during searching with '/'
   (defadvice evil-search-forward
     (after advice-for-evil-search-next activate)
