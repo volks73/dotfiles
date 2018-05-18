@@ -14,11 +14,11 @@
 # configuration files in this repository.
 ln -sf $(pwd)/vim/vimrc $HOME/.vimrc
 ln -sf $(pwd)/vim/gvimrc $HOME/.gvimrc
-ln -sf $(pwd)/bashrc $HOME/.bashrc
+ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
 mkdir -p $HOME/.hammerspoon
 ln -sf $(pwd)/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
 ln -sf $(pwd)/hammerspoon/url.lua $HOME/.hammerspoon/url.lua
 mkdir -p $HOME/.config/karabiner
 ln -sf $(pwd)/karabiner/karabiner.json $HOME/.config/karabiner
-ln -sf $(pwd)/spacemacs $HOME/.spacemacs
+ln -sf $(pwd)/emacs/spacemacs $HOME/.spacemacs
 

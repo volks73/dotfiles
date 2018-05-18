@@ -7,4 +7,4 @@ REM a Windows systems. Simply double-click to run the batch file.
 set PWD=%cd%
 mklink %HOME%\_vimrc %PWD%\vim\windows-vimrc
 mklink %HOME%\_gvimrc %PWD%\vim\windows-gvimrc
-mklink %HOME%\.spacemacs %PWD%\spacemacs
+mklink %HOME%\.spacemacs %PWD%\emacs\spacemacs
