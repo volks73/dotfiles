@@ -1,0 +1,77 @@
+execute pathogen#infect()
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+set fileformat=dos
+set fileformats=dos,unix,mac
+set hidden
+set number
+set nolist
+set formatoptions+=1
+set lbr
+set mouse=c
+set anti enc=utf-8
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set background=dark
+set ruler
+set autochdir
+set backupdir-=.
+set backupdir^=$TEMP//
+set dir=$TEMP//
+set showcmd
+syntax on
+inoremap fd <Esc>
+nnoremap , $p
+nnoremap <SPACE> <Nop>
+vnoremap <SPACE> <Nop>
+map <Leader>ne :NERDTreeToggle<CR>
+map <SPACE> <Leader>
+map <Leader>~html :execute ':bufdo! %s/<\/\?\zs\(\w\+\)\ze[ >]/\L\1/g'<CR>
+nnoremap n nzz
+nnoremap <Leader>wj <C-W><C-J>
+nnoremap <Leader>wk <C-W><C-K>
+nnoremap <Leader>wl <C-W><C-L>
+nnoremap <Leader>wh <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <D-d> <C-d>
+nnoremap <D-u> <C-u>
+vnoremap <D-d> <C-d>
+vnoremap <D-u> <C-u>
+nnoremap <D-j> <C-W><C-j>
+nnoremap <D-k> <C-W><C-k>
+nnoremap <D-l> <C-W><C-l>
+nnoremap <D-h> <C-W><C-h>
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
+let g:solarized_underline=0
+let g:solarized_termtrans=1
+colorscheme solarized 
+filetype indent plugin on
+autocmd BufRead,BufNewFile *.c set cindent
+autocmd BufRead,BufNewFile *.h set cindent
+autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype svn setlocal spell textwidth=72
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc spell conceallevel=0
+augroup END
+autocmd BufRead,BufNewFile *.csv set nowrap
+autocmd BufRead,BufNewFile *.lcw set filetype=dosini
+autocmd BufRead,BufNewFile *.ino set filetype=cpp
+autocmd BufRead,BufNewFile *.ulp set filetype=c
+autocmd BufRead,BufNewFile *.lca set filetype=lua
+autocmd BufRead,BufNewFile *.doku set filetype=dokuwiki spell
+autocmd BufRead,BufNewFile *.bbcode set filetype=bbcode spell
+autocmd BufRead,BufNewFile *.ahk set filetype=autohotkey
+
