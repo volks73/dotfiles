@@ -4,7 +4,7 @@ REM Date Created: 2018-05-18
 REM
 REM Use this script to automate the installation of configuration files on
 REM a Windows systems. Simply double-click to run the batch file.
-mklink vimrc %HOME%\_vimrc
-mklink gvimrc %HOME%\_gvimrc
-mklink spacemacs %HOME%\.spacemacs
-
+set PWD=%cd%
+mklink %HOME%\_vimrc %PWD%\vimrc
+mklink %HOME%\_gvimrc %PWD%\gvimrc
+mklink %HOME%\.spacemacs %PWD%\spacemacs
