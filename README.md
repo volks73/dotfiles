@@ -22,14 +22,14 @@ Or, the symbolic links can be created manually as follows:
 Since the `-f` flag is used for the `ln` command, any previous files or links will be overwritten.
 
 ```bash
-$ ln -sf $(pwd)/vimrc $HOME/.vimrc
-$ ln -sf $(pwd)/gvimrc $HOME/.gvimrc
-$ ln -sf $(pwd)/bashrc $HOME/.bashrc
+$ ln -sf $(pwd)/vim/vimrc $HOME/.vimrc
+$ ln -sf $(pwd)/vim/gvimrc $HOME/.gvimrc
+$ ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
 $ mkdir -p $HOME/.hammerspoon
 $ ln -sf $(pwd)/hammerspoon/init.lua $HOME/.hammerspoon/init.lua
 $ ln -sf $(pwd)/hammerspoon/url.lua $HOME/.hammerspoon/url.lua
 $ mkdir -p $HOME/.config/karabiner
 $ ln -sf $(pwd)/karabiner/karabiner.json $HOME/.config/karabiner
-$ ln -sf $(pwd)/spacemacs $HOME/.spacemacs
+$ ln -sf $(pwd)/emacs/spacemacs $HOME/.spacemacs
 ```
 
