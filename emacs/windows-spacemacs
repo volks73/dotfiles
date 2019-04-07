@@ -358,7 +358,7 @@ you should place your code here."
   ;; readline support.
   (setq python-shell-completion-native-disabled-interpreters '("python"))
   )
-  (setq default-directory "D:/Users/cfield/Code/")
+  (setq default-directory "~/Code/")
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
