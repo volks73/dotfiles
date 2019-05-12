@@ -344,6 +344,21 @@ you should place your code here."
     (evil-scroll-line-to-center (line-number-at-pos)))
   (remove-hook 'rust-mode-hook 'racer-mode)
   (remove-hook 'rust-mode-hook 'company-mode)
+  ;; Disables indenting after inserting a newline, which was super annoying.
+  (define-key evil-normal-state-map (kbd "o")
+    (lambda ()
+      (interactive)
+      (call-interactively 'spacemacs/evil-insert-line-below)
+      (evil-next-line)))
+  (define-key evil-normal-state-map (kbd "O")
+    (lambda ()
+      (interactive)
+      (call-interactively 'spacemacs/evil-insert-line-above)))
+  (define-key evil-insert-state-map (kbd "<return>")
+    (lambda ()
+      (interactive)
+      (newline)
+      (back-to-indentation)))
   ;; Disables adaptive-wrap for the rust major mode. The implementation is based
   ;; on Spacemacs's FAQ for disabling packages in a specific major mode. It is
   ;; suggested by https://github.com/raxod502/radian/issues/392 to disable
