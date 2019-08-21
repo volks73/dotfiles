@@ -1,7 +1,7 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-
+(setq default-directory "~/Code/")
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -31,24 +31,25 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     windows-scripts
      c-c++
-     javascript
-     html
-     rust
-     python
+     emacs-lisp
+     git
      github
+     helm
+     html
+     javascript
      lua
+     php
+     python
+     rust
+     windows-scripts
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
      ;; auto-completion
      ;; better-defaults
-     emacs-lisp
-     git
      ;; markdown
      ;; org
      ;; (shell :variables
@@ -68,8 +69,18 @@ values."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages
    '(
-     smartparens
+     ;; smartparens
      racer
+     ;; The php-extras package comes from quelpa and requires the `tar` command. This causes the following error:
+     ;;
+     ;; >An error occurred while installing php-extras (error: (wrong-type-argument stringp nil))
+     ;;
+     ;; An [issue] has been filed but the suggested workarounds in the
+     ;; discussion of the issue do not work. The only solution I (cfield) could
+     ;; find was to exclude the package causing the error.
+     ;;
+     ;; [issue]: https://github.com/syl20bnr/spacemacs/issues/10566
+     php-extras
      )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -317,8 +328,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default c-default-style "bsd")
   (setq-default c-basic-offset 4)
   (setq-default tab-width 4)
-  (setq-default ispell-dictionary "american")
-  )
+  (setq-default ispell-dictionary "american"))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -345,20 +355,23 @@ you should place your code here."
   (remove-hook 'rust-mode-hook 'racer-mode)
   (remove-hook 'rust-mode-hook 'company-mode)
   ;; Disables indenting after inserting a newline, which was super annoying.
-  (define-key evil-normal-state-map (kbd "o")
-    (lambda ()
-      (interactive)
-      (call-interactively 'spacemacs/evil-insert-line-below)
-      (evil-next-line)))
-  (define-key evil-normal-state-map (kbd "O")
-    (lambda ()
-      (interactive)
-      (call-interactively 'spacemacs/evil-insert-line-above)))
-  (define-key evil-insert-state-map (kbd "<return>")
-    (lambda ()
-      (interactive)
-      (newline)
-      (back-to-indentation)))
+  ;;
+  ;; This may be slowing down emacs and typing speed. I am disabling for now as
+  ;; an experiment to see if this was causing a significant typing lag.
+  ;; (define-key evil-normal-state-map (kbd "o")
+  ;;   (lambda ()
+  ;;     (interactive)
+  ;;     (call-interactively 'spacemacs/evil-insert-line-below)
+  ;;     (evil-next-line)))
+  ;; (define-key evil-normal-state-map (kbd "O")
+  ;;   (lambda ()
+  ;;     (interactive)
+  ;;     (call-interactively 'spacemacs/evil-insert-line-above)))
+  ;; (define-key evil-insert-state-map (kbd "<return>")
+  ;;   (lambda ()
+  ;;     (interactive)
+  ;;     (newline)
+  ;;     (back-to-indentation)))
   ;; Disables adaptive-wrap for the rust major mode. The implementation is based
   ;; on Spacemacs's FAQ for disabling packages in a specific major mode. It is
   ;; suggested by https://github.com/raxod502/radian/issues/392 to disable
@@ -377,8 +390,14 @@ you should place your code here."
   ;; Native completion is not supported for Windows 10 at the moment because of
   ;; readline support.
   (setq python-shell-completion-native-disabled-interpreters '("python"))
+  ;; Enable web-mode for PHP Blade templates instead of php-mode.
+  ;; See https://stackoverflow.com/questions/35041377/in-spacemacs-how-do-i-enable-web-mode-blade-php-files
+  ;; for more information
+  (add-to-list 'auto-mode-alist '("\\.blade.php\\'" . web-mode))
+  (sp-local-pair 'web-mode "<" ">")
+  (sp-local-pair 'web-mode "{" "}" :actions nil)
+  (add-hook 'web-mode-hook #'turn-on-smartparens-mode t)
   )
-  (setq default-directory "~/Code/")
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
