@@ -38,11 +38,16 @@ values."
      helm
      html
      javascript
+     latex
      lua
+     markdown
      php
-     python
+     (python :variables python-test-runner 'pytest)
+     restclient
      rust
      windows-scripts
+     vimscript
+     version-control
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -390,14 +395,38 @@ you should place your code here."
   ;; Native completion is not supported for Windows 10 at the moment because of
   ;; readline support.
   (setq python-shell-completion-native-disabled-interpreters '("python"))
+  ;;(setq python-shell-interpreter "python3" python-shell-interpreter-args "--simple-prompt -i")
   ;; Enable web-mode for PHP Blade templates instead of php-mode.
   ;; See https://stackoverflow.com/questions/35041377/in-spacemacs-how-do-i-enable-web-mode-blade-php-files
   ;; for more information
   (add-to-list 'auto-mode-alist '("\\.blade.php\\'" . web-mode))
-  (sp-local-pair 'web-mode "<" ">")
-  (sp-local-pair 'web-mode "{" "}" :actions nil)
+  ;; (sp-local-pair 'web-mode "<" ">")
+  ;; (sp-local-pair 'web-mode "{" "}" :actions nil)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode t)
-  )
+  ;;(setq rust-format-on-save t)
+  (setq tramp-default-method "plink")
+  (setq magit-git-executable "git")
+  (push "magit+" spacemacs-useless-buffers-regexp)
+  ;; Possibly disable anaconda-mode, which was giving errors
+  ;;(remove-hook 'python-mode-hook 'anaconda-mode)
+  ;; Possibly fix Tramp not opening python files through plink
+  ;;
+  ;; See https://github.com/nonsequitur/git-gutter-plus/issues/42
+  (with-eval-after-load 'git-gutter+
+    (defun git-gutter+-remote-default-directory (dir file)
+      (let* ((vec (tramp-dissect-file-name file))
+             (method (tramp-file-name-method vec))
+             (user (tramp-file-name-user vec))
+             (domain (tramp-file-name-domain vec))
+             (host (tramp-file-name-host vec))
+             (port (tramp-file-name-port vec)))
+        (tramp-make-tramp-file-name method user domain host port dir)))
+    (defun git-gutter+-remote-file-path (dir file)
+      (let ((file (tramp-file-name-localname (tramp-dissect-file-name file))))
+        (replace-regexp-in-string (concat "\\`" dir) "" file))))
+  (setq font-latex-fontify-script nil)
+  (setq font-latex-fontify-sectioning 'color)
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -408,10 +437,31 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (evil-smartparens js2-refactor github-search cmake-mode phpunit phpcbf php-auto-yasnippets drupal-mode php-mode sass-mode lua-mode tern web-mode lv yasnippet multiple-cursors ht transient haml-mode js2-mode mmm-mode markdown-toc gh-md flyspell-correct-helm flyspell-correct auto-dictionary powershell pyenv-mode hy-mode anaconda-mode yapfify pyvenv pytest py-isort pip-requirements live-py-mode dash-functional helm-pydoc cython-mode pythonic treepy graphql markdown-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler toml-mode pos-tip racer cargo rust-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (skewer-mode magit-gh-pulls helm-css-scss restclient-helm ob-restclient restclient ob-http vimrc-mode dactyl-mode clang-format simple-httpd evil-smartparens js2-refactor github-search cmake-mode phpunit phpcbf php-auto-yasnippets drupal-mode php-mode sass-mode lua-mode tern web-mode lv yasnippet multiple-cursors ht transient haml-mode js2-mode mmm-mode markdown-toc gh-md flyspell-correct-helm flyspell-correct auto-dictionary powershell pyenv-mode hy-mode anaconda-mode yapfify pyvenv pytest py-isort pip-requirements live-py-mode dash-functional helm-pydoc cython-mode pythonic treepy graphql markdown-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler toml-mode pos-tip racer cargo rust-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(markdown-header-scaling nil)
+ '(package-selected-packages
+   (quote
+    (skewer-mode magit-gh-pulls helm-css-scss restclient-helm ob-restclient restclient ob-http vimrc-mode dactyl-mode clang-format simple-httpd evil-smartparens js2-refactor github-search cmake-mode phpunit phpcbf php-auto-yasnippets drupal-mode php-mode sass-mode lua-mode tern web-mode lv yasnippet multiple-cursors ht transient haml-mode js2-mode mmm-mode markdown-toc gh-md flyspell-correct-helm flyspell-correct auto-dictionary powershell pyenv-mode hy-mode anaconda-mode yapfify pyvenv pytest py-isort pip-requirements live-py-mode dash-functional helm-pydoc cython-mode pythonic treepy graphql markdown-mode smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub let-alist with-editor ws-butler toml-mode pos-tip racer cargo rust-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)

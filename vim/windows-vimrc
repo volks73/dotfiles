@@ -47,6 +47,9 @@ nnoremap <D-j> <C-W><C-j>
 nnoremap <D-k> <C-W><C-k>
 nnoremap <D-l> <C-W><C-l>
 nnoremap <D-h> <C-W><C-h>
+nnoremap <Leader>p "+p
+nnoremap <Leader>y "+y
+vnoremap <Leader>y "+y
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
 map <silent> e <Plug>CamelCaseMotion_e
